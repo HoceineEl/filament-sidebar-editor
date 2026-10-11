@@ -1,0 +1,29 @@
+laravel: '@testbench'
+
+env:
+  - APP_KEY="base64:2fl+Ktvkfl+Fuz4Qp/A75G2RTiWVA/ZoKZvp6fiiM10="
+  - DB_CONNECTION=sqlite
+  - SESSION_DRIVER=file
+  - CACHE_STORE=file
+
+providers:
+  - HoceineEl\SidebarEditor\SidebarEditorServiceProvider
+  - Workbench\App\Providers\WorkbenchServiceProvider
+  - Workbench\App\Providers\AdminPanelProvider
+
+migrations:
+  - workbench/database/migrations
+
+seeders:
+  - Workbench\Database\Seeders\DatabaseSeeder
+
+workbench:
+  start: '/admin/sidebar'
+  build:
+    - asset-publish
+    - filament:assets
+    - create-sqlite-db
+    - db-wipe
+    - migrate-fresh
+  assets: []
+  sync: []

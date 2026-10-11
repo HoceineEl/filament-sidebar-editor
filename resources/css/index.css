@@ -1,0 +1,406 @@
+.sbe-editor {
+    --sbe-surface: #fff;
+    --sbe-surface-muted: color-mix(in oklab, var(--gray-50) 70%, transparent);
+    --sbe-ring: color-mix(in oklab, var(--gray-950) 5%, transparent);
+    --sbe-ring-strong: color-mix(in oklab, var(--gray-950) 10%, transparent);
+    --sbe-divider: var(--gray-100);
+    --sbe-text: var(--gray-950);
+    --sbe-text-soft: var(--gray-700);
+    --sbe-text-muted: var(--gray-600);
+    --sbe-text-faint: var(--gray-400);
+    --sbe-hover: var(--gray-50);
+    --sbe-off: var(--gray-100);
+    --sbe-focus: var(--primary-600);
+    --sbe-radius: 0.75rem;
+
+    display: grid;
+    gap: 1.5rem;
+}
+
+.dark .sbe-editor {
+    --sbe-surface: var(--gray-900);
+    --sbe-surface-muted: color-mix(in oklab, #fff 3%, transparent);
+    --sbe-ring: color-mix(in oklab, #fff 10%, transparent);
+    --sbe-ring-strong: color-mix(in oklab, #fff 15%, transparent);
+    --sbe-divider: color-mix(in oklab, #fff 5%, transparent);
+    --sbe-text: #fff;
+    --sbe-text-soft: var(--gray-300);
+    --sbe-text-muted: var(--gray-400);
+    --sbe-text-faint: var(--gray-500);
+    --sbe-hover: color-mix(in oklab, #fff 5%, transparent);
+    --sbe-off: color-mix(in oklab, #fff 5%, transparent);
+    --sbe-focus: var(--primary-500);
+}
+
+@media (min-width: 64rem) {
+    .sbe-editor {
+        grid-template-columns: minmax(0, 1fr) 16rem;
+    }
+}
+
+.sbe-main {
+    display: grid;
+    min-width: 0;
+    align-content: start;
+    gap: 1rem;
+}
+
+.sbe-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.sbe-hint {
+    display: flex;
+    max-width: 65ch;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--sbe-text-muted);
+}
+
+.sbe-hint-icon {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.125rem;
+    color: var(--gray-400);
+}
+
+.sbe-icon {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+}
+
+.sbe-icon-sm {
+    flex-shrink: 0;
+    width: 0.875rem;
+    height: 0.875rem;
+}
+
+.sbe-dirty {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--warning-800);
+    background: var(--warning-50);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--warning-600) 20%, transparent);
+}
+
+.dark .sbe-dirty {
+    color: var(--warning-300);
+    background: color-mix(in oklab, var(--warning-400) 10%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--warning-400) 20%, transparent);
+}
+
+.sbe-dirty-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--warning-500);
+}
+
+.sbe-groups {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.sbe-group {
+    overflow: hidden;
+    border-radius: var(--sbe-radius);
+    background: var(--sbe-surface);
+    box-shadow: 0 0 0 1px var(--sbe-ring);
+}
+
+.sbe-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid var(--sbe-divider);
+    background: var(--sbe-surface-muted);
+}
+
+.sbe-group-title {
+    flex: 1;
+    min-width: 0;
+}
+
+.sbe-group-title h3 {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: var(--sbe-text);
+}
+
+.sbe-group-title p {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--sbe-text-muted);
+}
+
+.sbe-group.is-hidden .sbe-group-title h3 {
+    color: var(--gray-500);
+    text-decoration: line-through;
+    text-decoration-color: var(--gray-300);
+}
+
+.dark .sbe-group.is-hidden .sbe-group-title h3 {
+    text-decoration-color: var(--gray-600);
+}
+
+.sbe-handle {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 0.375rem;
+    color: var(--sbe-text-faint);
+    cursor: grab;
+}
+
+.sbe-handle:hover {
+    color: var(--sbe-text-soft);
+    background: var(--sbe-hover);
+}
+
+.sbe-handle:active {
+    cursor: grabbing;
+}
+
+.sbe-handle:focus-visible,
+.sbe-visibility:focus-visible {
+    outline: 2px solid var(--sbe-focus);
+    outline-offset: 2px;
+}
+
+.sbe-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sbe-items > * + * {
+    border-top: 1px solid var(--sbe-divider);
+}
+
+.sbe-item-row {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.sbe-item-icon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--gray-500);
+}
+
+.dark .sbe-item-icon {
+    color: var(--gray-400);
+}
+
+.sbe-item-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    color: var(--sbe-text);
+}
+
+.sbe-item.is-hidden > .sbe-item-row .sbe-item-label,
+.sbe-child.is-hidden .sbe-item-label {
+    color: var(--sbe-text-faint);
+}
+
+.sbe-item.is-hidden > .sbe-item-row .sbe-item-icon {
+    color: var(--gray-300);
+}
+
+.dark .sbe-item.is-hidden > .sbe-item-row .sbe-item-icon {
+    color: var(--gray-600);
+}
+
+.sbe-children {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0 0 0.5rem;
+    margin-inline-start: 3rem;
+    padding: 0;
+    padding-inline-start: 0.75rem;
+    border-inline-start: 1px solid var(--gray-200);
+    list-style: none;
+}
+
+.dark .sbe-children {
+    border-inline-start-color: color-mix(in oklab, #fff 10%, transparent);
+}
+
+.sbe-child {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-block: 0.125rem;
+    padding-inline-end: 0.75rem;
+}
+
+.sbe-child .sbe-item-label {
+    font-weight: 400;
+    color: var(--sbe-text-soft);
+}
+
+.sbe-visibility {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.375rem;
+    height: 1.75rem;
+    padding-inline: 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+    color: var(--sbe-text-soft);
+    box-shadow: inset 0 0 0 1px var(--sbe-ring-strong);
+    transition: background-color 150ms, color 150ms;
+}
+
+.dark .sbe-visibility {
+    color: var(--gray-200);
+}
+
+.sbe-visibility:hover {
+    background: var(--sbe-hover);
+}
+
+.sbe-visibility.is-off {
+    color: var(--gray-500);
+    background: var(--sbe-off);
+    box-shadow: none;
+}
+
+.dark .sbe-visibility.is-off {
+    color: var(--gray-400);
+}
+
+.sbe-pinned {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--gray-500);
+}
+
+.dark .sbe-pinned {
+    color: var(--gray-400);
+}
+
+.sbe-ghost {
+    opacity: 0.4;
+}
+
+.sbe-preview {
+    display: none;
+    align-self: start;
+    padding: 0.75rem;
+    border-radius: var(--sbe-radius);
+    background: var(--sbe-surface);
+    box-shadow: 0 0 0 1px var(--sbe-ring);
+}
+
+@media (min-width: 64rem) {
+    .sbe-preview {
+        position: sticky;
+        top: 6rem;
+        display: block;
+    }
+}
+
+.sbe-preview-title {
+    margin: 0 0 0.75rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+    color: var(--gray-500);
+}
+
+.dark .sbe-preview-title,
+.dark .sbe-preview-group-label {
+    color: var(--gray-400);
+}
+
+.sbe-preview-nav {
+    display: grid;
+    gap: 1rem;
+}
+
+.sbe-preview-group {
+    display: grid;
+    gap: 0.125rem;
+}
+
+.sbe-preview-group-label {
+    margin: 0 0 0.25rem;
+    padding-inline: 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+    color: var(--gray-500);
+}
+
+.sbe-preview-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--sbe-text-soft);
+}
+
+.sbe-preview-item .sbe-icon {
+    color: var(--gray-400);
+}
+
+.sbe-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sbe-visibility {
+        transition: none;
+    }
+}
+
+@media (forced-colors: active) {
+    .sbe-group,
+    .sbe-preview,
+    .sbe-visibility {
+        border: 1px solid CanvasText;
+    }
+}

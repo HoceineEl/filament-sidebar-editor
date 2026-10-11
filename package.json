@@ -1,0 +1,13 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "node bin/build.js --dev",
+        "build": "node bin/build.js",
+        "test:e2e": "playwright test -c tests/e2e/playwright.config.mjs"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.64.0",
+        "esbuild": "^0.25.0"
+    }
+}

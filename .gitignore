@@ -1,0 +1,9 @@
+/vendor
+/node_modules
+composer.lock
+.phpunit.cache
+.DS_Store
+.idea
+.vscode
+/test-results
+/.playwright-mcp
